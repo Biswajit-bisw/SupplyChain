@@ -20,12 +20,24 @@ public class SupplyChain extends Application {
     public static final int width = 700,height = 600,headerBar = 50;
 
     Pane bodyPane=new Pane();
+    public  static  int bodyWidth, bodyHeight;
     Login login=new Login();
     ProductDetails productDetails=new ProductDetails();
+
 
     private GridPane headerBar(){
         TextField searchText = new TextField();
         Button searchButton = new Button("Search");
+        searchButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String productName = searchText.getText();
+                productDetails.getProductsByName(productName);
+                bodyPane.getChildren().clear();
+                bodyPane.getChildren().add(productDetails.getProductsByName(productName));
+            }
+        });
+
 
         GridPane gridPane=new GridPane();
         gridPane.setMinSize(bodyPane.getMinWidth(),headerBar-10);
@@ -36,6 +48,7 @@ public class SupplyChain extends Application {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.add(searchText,0,0);
         gridPane.add(searchButton,1,0);
+
 
         return gridPane;
 
