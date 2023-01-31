@@ -20,6 +20,8 @@ public class SupplyChain extends Application {
     public static final int width = 700,height = 600,headerBar = 50;
 
     Pane bodyPane=new Pane();
+    Login login=new Login();
+    ProductDetails productDetails=new ProductDetails();
 
     private GridPane headerBar(){
         TextField searchText = new TextField();
@@ -55,6 +57,15 @@ private GridPane loginPage(){
             String password=passwordField.getText();
             messageLabel.setText(email+"$$"+ password);
 
+           if(login.customerLogin(email,password))
+           {
+               messageLabel.setText("Login Successful");
+
+           }
+           else {
+               messageLabel.setText("Login Failed");
+           }
+
         }
     });
 
@@ -83,7 +94,7 @@ private GridPane loginPage(){
         bodyPane.setMinSize(width,height);
         bodyPane.setTranslateY(headerBar);
 
-        bodyPane.getChildren().addAll(loginPage());
+        bodyPane.getChildren().addAll(productDetails.getAllProducts());
 
 
         root.getChildren().addAll(headerBar(),bodyPane);
